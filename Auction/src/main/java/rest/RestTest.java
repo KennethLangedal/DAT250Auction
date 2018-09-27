@@ -28,6 +28,7 @@ public class RestTest {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
+	//test
 
 	public Response getProducts() {
 		TypedQuery<Product> query = em.createNamedQuery(Product.FIND_ALL, Product.class);

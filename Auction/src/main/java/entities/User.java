@@ -9,10 +9,14 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * @author Kenneth
+ *
+ */
 @Entity
 @XmlRootElement
 @Table(name="profile")
-@NamedQuery(name="Tweet.findAll", query="SELECT t FROM User t")
+@NamedQuery(name="User.findAll", query="SELECT t FROM User t")
 public class User {
 	private static final long serialVersionUID = 1L;
 

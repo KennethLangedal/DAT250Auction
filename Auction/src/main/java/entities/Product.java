@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -38,7 +40,11 @@ public class Product {
 	
 	private Boolean active;
 	
+	@ManyToOne
 	private User user;
+	
+	@ManyToOne
+	private User buyer;
 	
 	private Rating rating;
 	
@@ -124,6 +130,14 @@ public class Product {
 
 	public void setBidHistory(ArrayList<Bid> bidHistory) {
 		this.bidHistory = bidHistory;
+	}
+
+	public User getBuyer() {
+		return buyer;
+	}
+
+	public void setBuyer(User buyer) {
+		this.buyer = buyer;
 	}
 
 	@Override

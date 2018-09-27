@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -39,8 +40,10 @@ public class User {
 	
 	private int phone;
 	
+	@OneToMany(mappedBy="user")
 	private ArrayList<Product> products;
 	
+	@OneToMany(mappedBy="buyer")
 	private ArrayList<Product> purchaseHistory;
 	
 	private ArrayList<Bid> bidHistory;

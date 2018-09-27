@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -34,6 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 		
 		private int amount;
 		
+		@ManyToOne
 		private User user;
 		
 		public Bid() {

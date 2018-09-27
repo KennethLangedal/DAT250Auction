@@ -40,12 +40,13 @@ public class User {
 	
 	private int phone;
 	
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", orphanRemoval=true)
 	private ArrayList<Product> products;
 	
-	@OneToMany(mappedBy="buyer")
+	@OneToMany(mappedBy="buyer", orphanRemoval=true)
 	private ArrayList<Product> purchaseHistory;
 	
+	@OneToMany(mappedBy="user", orphanRemoval=true)
 	private ArrayList<Bid> bidHistory;
 
 	public static final String FIND_ALL = "User.findAll";

@@ -16,54 +16,79 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 	@Entity
 	@XmlRootElement
-	@Table(name="feature")
-	@NamedQuery(name="Feature.findAll", query="SELECT t FROM Feature t")
-	public class Feature {
+	@Table(name="bid")
+	@NamedQuery(name="Bid.findAll", query="SELECT t FROM Bid t")
+	public class Bid {
 		private static final long serialVersionUID = 1L;
+		
+		public static final String FIND_ALL = "Bid.findAll";
 
 		//Create elements ids automatically, incremented 1 by 1
 		@TableGenerator(
-				  name = "featureTableGenerator",
+				  name = "bidTableGenerator",
 				  allocationSize = 1,
 				  initialValue = 1)
-		
-		
-		
-		
 		@Id
 		@GeneratedValue(strategy=GenerationType.TABLE,generator="bidTableGenerator")
 		private int id;
 		
-		private String description;
+		private int amount;
 		
-		public static final String FIND_ALL = "Feature.findAll";
+		private User user;
 		
-		public Feature() {
+		public Bid() {
 			
 		}
+		
+		
 
 		public int getId() {
 			return id;
 		}
 
+
+
 		public void setId(int id) {
 			this.id = id;
 		}
 
-		public String getDescription() {
-			return description;
+
+
+		public int getAmount() {
+			return amount;
 		}
 
-		public void setDescription(String description) {
-			this.description = description;
+
+
+		public void setAmount(int amount) {
+			this.amount = amount;
 		}
+
+
+
+		public User getUser() {
+			return user;
+		}
+
+
+
+		public void setUser(User user) {
+			this.user = user;
+		}
+
+
 
 		@Override
 		public String toString() {
-			return "Feature [id=" + id + ", description=" + description + "]";
+			return "Bid [id=" + id + ", amount=" + amount + ", user=" + user + "]";
 		}
-
-	
+		
+		
+		
+		
+		
+		
 		
 		
  }
+

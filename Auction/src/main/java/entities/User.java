@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.ArrayList;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,8 +38,14 @@ public class User {
 	private String email;
 	
 	private int phone;
+	
+	private ArrayList<Product> products;
+	
+	private ArrayList<Product> purchaseHistory;
+	
+	private ArrayList<Bid> bidHistory;
 
-	public static final String FIND_ALL = "Tweet.findAll";
+	public static final String FIND_ALL = "User.findAll";
 	
 	public User() {
 		
@@ -81,6 +89,30 @@ public class User {
 
 	public void setPhone(int phone) {
 		this.phone = phone;
+	}
+
+	public ArrayList<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(ArrayList<Product> products) {
+		this.products = products;
+	}
+
+	public ArrayList<Product> getPurchaseHistory() {
+		return purchaseHistory;
+	}
+
+	public void setPurchaseHistory(ArrayList<Product> purchaseHistory) {
+		this.purchaseHistory = purchaseHistory;
+	}
+
+	public ArrayList<Bid> getBidHistory() {
+		return bidHistory;
+	}
+
+	public void setBidHistory(ArrayList<Bid> bidHistory) {
+		this.bidHistory = bidHistory;
 	}
 
 	@Override

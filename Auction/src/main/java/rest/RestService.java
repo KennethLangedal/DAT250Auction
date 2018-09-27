@@ -6,6 +6,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -25,8 +26,16 @@ public class RestService {
 	
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
-	public String getTweets() {
-		User test = em.find(User.class, 1);
+	public String getUser() {
+		User test = em.find(User.class, 2);
+		return test.toString();
+	}
+	
+	@GET
+	@Path("{id}")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getUserId(@PathParam("id") int id) {
+		User test = em.find(User.class, id);
 		return test.toString();
 	}
 }

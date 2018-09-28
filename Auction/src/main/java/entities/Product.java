@@ -143,11 +143,15 @@ public class Product {
 		this.buyer = buyer;
 	}
 
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", endTime=" + endTime + ", active=" + active + ", user=" + user
-				+ ", buyer=" + buyer + ", rating=" + rating + ", features=" + features + ", pictures=" + pictures
-				+ ", bidHistory=" + bidHistory + "]";
-	}
+	
+	
+	
+	
+
+
+
+
+
+	
 	
 }

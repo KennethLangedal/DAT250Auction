@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * @author Kenneth
@@ -94,7 +95,7 @@ public class User {
 	public void setPhone(int phone) {
 		this.phone = phone;
 	}
-
+	@XmlTransient
 	public ArrayList<Product> getProducts() {
 		return products;
 	}
@@ -102,7 +103,7 @@ public class User {
 	public void setProducts(ArrayList<Product> products) {
 		this.products = products;
 	}
-
+	@XmlTransient
 	public ArrayList<Product> getPurchaseHistory() {
 		return purchaseHistory;
 	}
@@ -111,6 +112,7 @@ public class User {
 		this.purchaseHistory = purchaseHistory;
 	}
 
+	@XmlTransient
 	public ArrayList<Bid> getBidHistory() {
 		return bidHistory;
 	}

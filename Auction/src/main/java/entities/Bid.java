@@ -9,6 +9,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * @author Markus
@@ -65,7 +66,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 		public void setAmount(int amount) {
 			this.amount = amount;
 		}
-
 
 
 		public User getUser() {

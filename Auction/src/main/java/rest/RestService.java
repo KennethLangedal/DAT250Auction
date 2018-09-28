@@ -36,9 +36,18 @@ public class RestService {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
+	@Consumes(MediaType.APPLICATION_XML)
 	public List<Product> getAuctions() {
 		TypedQuery<Product> query = em.createNamedQuery(Product.FIND_ALL, Product.class);
 		return query.getResultList();
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String getAuctionsJSON() {
+		TypedQuery<Product> query = em.createNamedQuery(Product.FIND_ALL, Product.class);
+		return gson.toJson(query.getResultList());
 	}
 
 	@GET
@@ -68,6 +77,7 @@ public class RestService {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
+	@Consumes(MediaType.APPLICATION_XML)
 	@Path("{id}/bids")
 	public List<Bid> getBids(@PathParam("id") String id) {
 		int idInt = Integer.parseInt(id);
@@ -78,7 +88,20 @@ public class RestService {
 	}
 	
 	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("{id}/bids")
+	public String getBidsJSON(@PathParam("id") String id) {
+		int idInt = Integer.parseInt(id);
+		Product product = em.find(Product.class, idInt);
+		if (product == null)
+			throw new NotFoundException();
+		return gson.toJson(product.getBidHistory());
+	}
+	
+	@GET
 	@Produces(MediaType.APPLICATION_XML)
+	@Consumes(MediaType.APPLICATION_XML)
 	@Path("{id}/bids/{bid}")
 	public Bid getBid(@PathParam("id") String id, @PathParam("bid") String bId) {
 		int bIdInt = Integer.parseInt(bId);
@@ -86,6 +109,18 @@ public class RestService {
 		if (bid == null)
 			throw new NotFoundException();
 		return bid;
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("{id}/bids/{bid}")
+	public String getBidJSON(@PathParam("id") String id, @PathParam("bid") String bId) {
+		int bIdInt = Integer.parseInt(bId);
+		Bid bid = em.find(Bid.class, bIdInt);
+		if (bid == null)
+			throw new NotFoundException();
+		return gson.toJson(bid);
 	}
 }
 

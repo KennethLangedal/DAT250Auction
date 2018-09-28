@@ -58,12 +58,15 @@ public class Product {
 	private Rating rating;
 	
 	@OneToMany(orphanRemoval=true)
+	@Expose
 	private ArrayList<Feature> features;
 	
 	@OneToMany(orphanRemoval=true)
+	@Expose
 	private ArrayList<Picture> pictures;
 	
 	@OneToMany(orphanRemoval=true)
+	@Expose
 	private ArrayList<Bid> bidHistory;
 	
 	public static final String FIND_ALL = "Product.findAll";

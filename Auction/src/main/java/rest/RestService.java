@@ -127,7 +127,7 @@ public class RestService {
 	@POST
 	@Produces(MediaType.APPLICATION_XML)
 	@Consumes(MediaType.APPLICATION_XML)
-	@Path("{id}/makebid")
+	@Path("{id}/bids")
 	public Bid postBid(@PathParam("id") String id, @QueryParam("amount") String amount){
 		int bidId = Integer.parseInt(id);
 		int amountInt = Integer.parseInt(amount);
@@ -149,7 +149,7 @@ public class RestService {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("{id}/makebid")
+	@Path("{id}/bids")
 	public String postBidJson(@PathParam("id") String id, @QueryParam("amount") String amount){
 		int bidId = Integer.parseInt(id);
 		int amountInt = Integer.parseInt(amount);

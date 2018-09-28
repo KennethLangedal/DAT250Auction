@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -122,6 +123,52 @@ public class RestService {
 			throw new NotFoundException();
 		return gson.toJson(bid);
 	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_XML)
+	@Consumes(MediaType.APPLICATION_XML)
+	@Path("{id}/makebid")
+	public Bid postBid(@PathParam("id") String id, @QueryParam("amount") String amount){
+		int bidId = Integer.parseInt(id);
+		int amountInt = Integer.parseInt(amount);
+
+		Product product = em.find(Product.class, bidId);
+		if (product == null)
+			throw new NotFoundException();
+		
+		
+		Bid bid = new Bid();
+		bid.setAmount(amountInt);
+		product.addBid(bid);
+		em.persist(bid);
+		
+		return bid;
+			
+	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("{id}/makebid")
+	public String postBidJson(@PathParam("id") String id, @QueryParam("amount") String amount){
+		int bidId = Integer.parseInt(id);
+		int amountInt = Integer.parseInt(amount);
+
+		Product product = em.find(Product.class, bidId);
+		if (product == null)
+			throw new NotFoundException();
+		
+		
+		Bid bid = new Bid();
+		bid.setAmount(amountInt);
+		product.addBid(bid);
+		em.persist(bid);
+		
+		return gson.toJson(bid);
+			
+	}
+	
+	
 }
 
 

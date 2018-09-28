@@ -71,6 +71,13 @@ public class Product {
 	public Product() {
 		
 	}
+	
+	public void addBid(Bid bid) {
+		if(this.bidHistory == null)
+			this.bidHistory = new ArrayList<Bid>();
+		bidHistory.add(bid);
+		
+	}
 
 	public int getId() {
 		return id;

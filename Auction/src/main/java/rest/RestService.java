@@ -57,6 +57,17 @@ public class RestService {
 			throw new NotFoundException();
 		return product.getBidHistory();
 	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_XML)
+	@Path("{id}/bids/{bid}")
+	public Bid getBid(@PathParam("id") String id, @PathParam("bid") String bId) {
+		int bIdInt = Integer.parseInt(bId);
+		Bid bid = em.find(Bid.class, bIdInt);
+		if (bid == null)
+			throw new NotFoundException();
+		return bid;
+	}
 }
 
 

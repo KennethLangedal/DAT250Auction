@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * @author Kenneth
  *
@@ -31,21 +33,28 @@ public class Product {
 			  allocationSize = 1,
 			  initialValue = 1)
 	@Id
+	@Expose
 	@GeneratedValue(strategy=GenerationType.TABLE,generator="productTableGenerator")
 	private int id;
 	
+	@Expose
 	private String name;
 	
+	@Expose
 	private Date endTime;
 	
+	@Expose
 	private Boolean active;
 	
 	@ManyToOne
+	@Expose
 	private User user;
 	
 	@ManyToOne
+	@Expose
 	private User buyer;
 	
+	@Expose
 	private Rating rating;
 	
 	@OneToMany(orphanRemoval=true)

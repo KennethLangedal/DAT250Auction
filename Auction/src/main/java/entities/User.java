@@ -2,6 +2,7 @@ package entities;
 
 import java.util.ArrayList;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import com.google.gson.annotations.Expose;
 
 /**
  * @author Kenneth
@@ -30,15 +33,20 @@ public class User {
 			  allocationSize = 1,
 			  initialValue = 1)
 	@Id
+	@Expose
 	@GeneratedValue(strategy=GenerationType.TABLE,generator="userTableGenerator")
 	private int id;
 	
+	@Expose
 	private String fName;
 	
+	@Expose
 	private String lName;
 
+	@Expose
 	private String email;
 	
+	@Expose
 	private int phone;
 	
 	@OneToMany(mappedBy="user", orphanRemoval=true)
@@ -96,6 +104,7 @@ public class User {
 		this.phone = phone;
 	}
 	@XmlTransient
+	
 	public ArrayList<Product> getProducts() {
 		return products;
 	}
@@ -104,6 +113,7 @@ public class User {
 		this.products = products;
 	}
 	@XmlTransient
+	
 	public ArrayList<Product> getPurchaseHistory() {
 		return purchaseHistory;
 	}
@@ -113,6 +123,7 @@ public class User {
 	}
 
 	@XmlTransient
+	
 	public ArrayList<Bid> getBidHistory() {
 		return bidHistory;
 	}

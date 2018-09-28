@@ -9,6 +9,8 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * @author Markus
  *
@@ -29,11 +31,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 				  allocationSize = 1,
 				  initialValue = 1)
 		@Id
+		@Expose
 		@GeneratedValue(strategy=GenerationType.TABLE,generator="pictureTableGenerator")
 		private int id;
 		
+		@Expose
 		private String path;
 		
+		@Expose
 		private String title;
 		
 		public Picture() {

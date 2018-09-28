@@ -9,7 +9,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+
+import com.google.gson.annotations.Expose;
 
 /**
  * @author Markus
@@ -31,13 +32,17 @@ import javax.xml.bind.annotation.XmlTransient;
 				  allocationSize = 1,
 				  initialValue = 1)
 		@Id
+		@Expose
 		@GeneratedValue(strategy=GenerationType.TABLE,generator="bidTableGenerator")
 		private int id;
 		
+		@Expose
 		private int amount;
 		
 		@ManyToOne
+		@Expose
 		private User user;
+		
 		
 		public Bid() {
 			

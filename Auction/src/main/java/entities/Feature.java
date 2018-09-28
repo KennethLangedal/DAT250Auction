@@ -9,6 +9,8 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * @author Markus
  *
@@ -31,9 +33,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 		
 		
 		@Id
+		@Expose
 		@GeneratedValue(strategy=GenerationType.TABLE,generator="bidTableGenerator")
 		private int id;
-		
+		@Expose
 		private String description;
 		
 		public static final String FIND_ALL = "Feature.findAll";

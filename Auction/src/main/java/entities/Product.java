@@ -3,6 +3,7 @@ package entities;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,9 +13,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import com.google.gson.annotations.Expose;
 
 /**
  * @author Kenneth
@@ -22,64 +23,51 @@ import com.google.gson.annotations.Expose;
  */
 @Entity
 @XmlRootElement
-@Table(name="product")
-@NamedQuery(name="Product.findAll", query="SELECT t FROM Product t")
+@Table(name = "product")
+@NamedQuery(name = "Product.findAll", query = "SELECT t FROM Product t")
 public class Product {
 	private static final long serialVersionUID = 1L;
 
-	//Create elements ids automatically, incremented 1 by 1
-	@TableGenerator(
-			  name = "productTableGenerator",
-			  allocationSize = 1,
-			  initialValue = 1)
+	// Create elements ids automatically, incremented 1 by 1
+	@TableGenerator(name = "productTableGenerator", allocationSize = 1, initialValue = 1)
 	@Id
-	@Expose
-	@GeneratedValue(strategy=GenerationType.TABLE,generator="productTableGenerator")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "productTableGenerator")
 	private int id;
-	
-	@Expose
+
 	private String name;
-	
-	@Expose
+
 	private Date endTime;
-	
-	@Expose
+
 	private Boolean active;
-	
-	@ManyToOne
-	@Expose
+
+	@ManyToOne(cascade=CascadeType.ALL)
 	private User user;
-	
-	@ManyToOne
-	@Expose
+
+	@ManyToOne(cascade=CascadeType.ALL)
 	private User buyer;
-	
-	@Expose
+
 	private Rating rating;
-	
-	@OneToMany(orphanRemoval=true)
-	@Expose
+
+	@OneToMany(cascade=CascadeType.ALL)
 	private ArrayList<Feature> features;
-	
-	@OneToMany(orphanRemoval=true)
-	@Expose
+
+	@OneToMany(cascade=CascadeType.ALL)
 	private ArrayList<Picture> pictures;
-	
-	@OneToMany(orphanRemoval=true)
-	@Expose
+
+	@OneToMany(cascade=CascadeType.ALL)
 	private ArrayList<Bid> bidHistory;
-	
+
 	public static final String FIND_ALL = "Product.findAll";
-	
+
 	public Product() {
-		
+
 	}
-	
+
 	public void addBid(Bid bid) {
-		if(this.bidHistory == null)
+		if (this.bidHistory == null)
 			this.bidHistory = new ArrayList<Bid>();
 		bidHistory.add(bid);
-		
+
 	}
 
 	public int getId() {
@@ -146,6 +134,8 @@ public class Product {
 		this.pictures = pictures;
 	}
 
+	@XmlElementWrapper(name = "bidHistory")
+	@XmlElement(name = "bid")
 	public ArrayList<Bid> getBidHistory() {
 		return bidHistory;
 	}
@@ -162,15 +152,4 @@ public class Product {
 		this.buyer = buyer;
 	}
 
-	
-	
-	
-	
-
-
-
-
-
-	
-	
 }

@@ -3,6 +3,7 @@ package entities;
 import java.util.ArrayList;
 
 import javax.json.bind.annotation.JsonbTransient;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,46 +23,38 @@ import com.google.gson.annotations.Expose;
  */
 @Entity
 @XmlRootElement
-@Table(name="profile")
-@NamedQuery(name="User.findAll", query="SELECT t FROM User t")
+@Table(name = "profile")
+@NamedQuery(name = "User.findAll", query = "SELECT t FROM User t")
 public class User {
 	private static final long serialVersionUID = 1L;
 
-	//Create elements ids automatically, incremented 1 by 1
-	@TableGenerator(
-			  name = "userTableGenerator",
-			  allocationSize = 1,
-			  initialValue = 1)
+	// Create elements ids automatically, incremented 1 by 1
+	@TableGenerator(name = "userTableGenerator", allocationSize = 1, initialValue = 1)
 	@Id
-	@Expose
-	@GeneratedValue(strategy=GenerationType.TABLE,generator="userTableGenerator")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "userTableGenerator")
 	private int id;
-	
-	@Expose
+
 	private String fName;
-	
-	@Expose
+
 	private String lName;
 
-	@Expose
 	private String email;
-	
-	@Expose
+
 	private int phone;
-	
-	@OneToMany(mappedBy="user", orphanRemoval=true)
+
+	@OneToMany(mappedBy = "user", cascade=CascadeType.ALL)
 	private ArrayList<Product> products;
-	
-	@OneToMany(mappedBy="buyer", orphanRemoval=true)
+
+	@OneToMany(mappedBy = "buyer", cascade=CascadeType.ALL)
 	private ArrayList<Product> purchaseHistory;
-	
-	@OneToMany(mappedBy="user", orphanRemoval=true)
+
+	@OneToMany(mappedBy = "user", cascade=CascadeType.ALL)
 	private ArrayList<Bid> bidHistory;
 
 	public static final String FIND_ALL = "User.findAll";
-	
+
 	public User() {
-		
+
 	}
 
 	public int getId() {
@@ -103,8 +96,8 @@ public class User {
 	public void setPhone(int phone) {
 		this.phone = phone;
 	}
+
 	@XmlTransient
-	
 	public ArrayList<Product> getProducts() {
 		return products;
 	}
@@ -112,8 +105,8 @@ public class User {
 	public void setProducts(ArrayList<Product> products) {
 		this.products = products;
 	}
+
 	@XmlTransient
-	
 	public ArrayList<Product> getPurchaseHistory() {
 		return purchaseHistory;
 	}
@@ -123,7 +116,6 @@ public class User {
 	}
 
 	@XmlTransient
-	
 	public ArrayList<Bid> getBidHistory() {
 		return bidHistory;
 	}

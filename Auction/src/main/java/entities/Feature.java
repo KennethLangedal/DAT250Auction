@@ -16,57 +16,47 @@ import com.google.gson.annotations.Expose;
  *
  */
 
-	@Entity
-	@XmlRootElement
-	@Table(name="feature")
-	@NamedQuery(name="Feature.findAll", query="SELECT t FROM Feature t")
-	public class Feature {
-		private static final long serialVersionUID = 1L;
+@Entity
+@XmlRootElement
+@Table(name = "feature")
+@NamedQuery(name = "Feature.findAll", query = "SELECT t FROM Feature t")
+public class Feature {
+	private static final long serialVersionUID = 1L;
 
-		//Create elements ids automatically, incremented 1 by 1
-		@TableGenerator(
-				  name = "featureTableGenerator",
-				  allocationSize = 1,
-				  initialValue = 1)
-		
-		
-		
-		
-		@Id
-		@Expose
-		@GeneratedValue(strategy=GenerationType.TABLE,generator="bidTableGenerator")
-		private int id;
-		@Expose
-		private String description;
-		
-		public static final String FIND_ALL = "Feature.findAll";
-		
-		public Feature() {
-			
-		}
+	// Create elements ids automatically, incremented 1 by 1
+	@TableGenerator(name = "featureTableGenerator", allocationSize = 1, initialValue = 1)
 
-		public int getId() {
-			return id;
-		}
-
-		public void setId(int id) {
-			this.id = id;
-		}
-
-		public String getDescription() {
-			return description;
-		}
-
-		public void setDescription(String description) {
-			this.description = description;
-		}
-
-		@Override
-		public String toString() {
-			return "Feature [id=" + id + ", description=" + description + "]";
-		}
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "bidTableGenerator")
+	private int id;
 	
-		
-		
- }
+	private String description;
+
+	public static final String FIND_ALL = "Feature.findAll";
+
+	public Feature() {
+
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@Override
+	public String toString() {
+		return "Feature [id=" + id + ", description=" + description + "]";
+	}
+
+}

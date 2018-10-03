@@ -17,29 +17,22 @@ import com.google.gson.annotations.Expose;
  */
 @Entity
 @XmlRootElement
-@Table(name="rating")
-@NamedQuery(name="Rating.findAll", query="SELECT t FROM Rating t")
+@Table(name = "rating")
+@NamedQuery(name = "Rating.findAll", query = "SELECT t FROM Rating t")
 public class Rating {
 	private static final long serialVersionUID = 1L;
-	
-	//Create elements ids automatically, incremented 1 by 1
-	@TableGenerator(
-			  name = "ratingTableGenerator",
-			  allocationSize = 1,
-			  initialValue = 1)
+
+	// Create elements ids automatically, incremented 1 by 1
+	@TableGenerator(name = "ratingTableGenerator", allocationSize = 1, initialValue = 1)
 	@Id
-	@Expose
-	@GeneratedValue(strategy=GenerationType.TABLE,generator="ratingTableGenerator")
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "ratingTableGenerator")
 	private int id;
-	
-	@Expose
+
 	private int score;
-	
-	@Expose
+
 	private String comment;
-	
-	@Expose
+
 	private User author;
-	
+
 	public static final String FIND_ALL = "Rating.findAll";
 }

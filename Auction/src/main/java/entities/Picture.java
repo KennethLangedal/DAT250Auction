@@ -16,67 +16,56 @@ import com.google.gson.annotations.Expose;
  *
  */
 
-	@Entity
-	@XmlRootElement
-	@Table(name="picture")
-	@NamedQuery(name="Picture.findAll", query="SELECT t FROM Picture t")
-	public class Picture {
-		private static final long serialVersionUID = 1L;
-		
-		public static final String FIND_ALL = "Picture.findAll";
+@Entity
+@XmlRootElement
+@Table(name = "picture")
+@NamedQuery(name = "Picture.findAll", query = "SELECT t FROM Picture t")
+public class Picture {
+	private static final long serialVersionUID = 1L;
 
-		//Create elements ids automatically, incremented 1 by 1
-		@TableGenerator(
-				  name = "pictureTableGenerator",
-				  allocationSize = 1,
-				  initialValue = 1)
-		@Id
-		@Expose
-		@GeneratedValue(strategy=GenerationType.TABLE,generator="pictureTableGenerator")
-		private int id;
-		
-		@Expose
-		private String path;
-		
-		@Expose
-		private String title;
-		
-		public Picture() {
-			
-		}
+	public static final String FIND_ALL = "Picture.findAll";
 
-		public int getId() {
-			return id;
-		}
+	// Create elements ids automatically, incremented 1 by 1
+	@TableGenerator(name = "pictureTableGenerator", allocationSize = 1, initialValue = 1)
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "pictureTableGenerator")
+	private int id;
 
-		public void setId(int id) {
-			this.id = id;
-		}
+	private String path;
 
-		public String getPath() {
-			return path;
-		}
+	private String title;
 
-		public void setPath(String path) {
-			this.path = path;
-		}
+	public Picture() {
 
-		public String getTitle() {
-			return title;
-		}
+	}
 
-		public void setTitle(String title) {
-			this.title = title;
-		}
+	public int getId() {
+		return id;
+	}
 
-		@Override
-		public String toString() {
-			return "Picture [id=" + id + ", path=" + path + ", title=" + title + "]";
-		}
-		
-		
-		
-		
-		
- }
+	public void setId(int id) {
+		this.id = id;
+	}
 
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	@Override
+	public String toString() {
+		return "Picture [id=" + id + ", path=" + path + ", title=" + title + "]";
+	}
+
+}

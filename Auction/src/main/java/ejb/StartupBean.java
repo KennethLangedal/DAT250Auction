@@ -23,12 +23,6 @@ public class StartupBean {
 	
     @PostConstruct
     public void init() {
-    	TypedQuery<User> deleteUsers = em.createQuery("DELETE FROM User CASCADE", User.class);
-    	deleteUsers.executeUpdate();
-    	
-    	TypedQuery<Product> deleteProducts = em.createQuery("DELETE FROM Product CASCADE", Product.class);
-    	deleteProducts.executeUpdate();
-    	
     	User user = new User();
     	user.setfName("Kenneth nr1");
     	user.setlName("Langedal");
@@ -64,18 +58,9 @@ public class StartupBean {
     	p2.setName("Coca Cola Lemon");
     	p2.setEndTime(new Date(111111));
     	p2.setUser(user);
-    	user.setProducts(new ArrayList<Product>() {{add(p2);}});
-    	
-    	Product p3 = new Product();
-    	p3.setUser(user);
-    	user.setProducts(new ArrayList<Product>() {{add(p3);}});
+    	user1.setProducts(new ArrayList<Product>() {{add(p2);}});
     	
     	em.persist(user);
     	em.persist(user1);
-    	em.persist(p3);
-    	em.persist(p1);
-    	em.persist(p2);
-    	em.persist(bid);
-    	em.persist(bid2);
     }
 }

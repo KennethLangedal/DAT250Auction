@@ -30,9 +30,9 @@ public class StartupBean {
     	user.setEmail("Kenneth.Langedal@hotmail.com");
 
     	Product p1 = new Product();
-    	p1.setActive(false);
+    	p1.setActive(true);
     	p1.setName("Fersk sjokolademelk");
-    	p1.setEndTime(new Date(10000));
+    	p1.setEndTime(new Date(2020,1,1));
     	p1.setUser(user);
     	
     	user.setProducts(new ArrayList<Product>() {{add(p1);}});
@@ -54,9 +54,9 @@ public class StartupBean {
     	p1.setBidHistory(new ArrayList<Bid>() {{add(bid); add(bid2);}});
     	
     	Product p2 = new Product();
-    	p2.setActive(false);
+    	p2.setActive(true);
     	p2.setName("Coca Cola Lemon");
-    	p2.setEndTime(new Date(111111));
+    	p2.setEndTime(new Date(2020,1,1));
     	p2.setUser(user);
     	user1.setProducts(new ArrayList<Product>() {{add(p2);}});
     	

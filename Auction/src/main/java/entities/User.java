@@ -56,6 +56,12 @@ public class User {
 	public User() {
 
 	}
+	
+	public void addBid(Bid bid) {
+		if (this.bidHistory == null)
+			this.bidHistory = new ArrayList<Bid>();
+		this.bidHistory.add(bid);
+	}
 
 	public int getId() {
 		return id;

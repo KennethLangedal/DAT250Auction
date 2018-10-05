@@ -2,6 +2,7 @@ package rest;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import ejb.ProductEJB;
 import entities.Bid;
 import entities.Product;
 
@@ -33,13 +35,13 @@ public class RestService {
 	@PersistenceContext(unitName = "Auction")
 	private EntityManager em;
 	
-	Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create(); 
+	@EJB
+	private ProductEJB productEJB;
 	
 	@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public List<Product> getAuctions() {
-		TypedQuery<Product> query = em.createNamedQuery(Product.FIND_ALL, Product.class);
-		return query.getResultList();
+		return productEJB.findProducts();
 	}
 
 	@GET
@@ -77,23 +79,12 @@ public class RestService {
 	
 	@POST
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	@Path("{id}/bids")
-	public Bid postBid(@PathParam("id") String id, @QueryParam("amount") String amount){
-		int bidId = Integer.parseInt(id);
-		int amountInt = Integer.parseInt(amount);
-
-		Product product = em.find(Product.class, bidId);
-		if (product == null)
-			throw new NotFoundException();
-		
-		
-		Bid bid = new Bid();
-		bid.setAmount(amountInt);
-		product.addBid(bid);
-		em.persist(bid);
-		
+	public Bid postBid(@PathParam("id") String id, Bid bid){
+		int productId = Integer.parseInt(id);
+		productEJB.placeBid(productId, 1, bid).ordinal();
 		return bid;
-			
 	}
 }
 

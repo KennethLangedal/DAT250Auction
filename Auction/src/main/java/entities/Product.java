@@ -62,12 +62,17 @@ public class Product {
 	public Product() {
 
 	}
+	
+	public Bid getLastBid() {
+		if (this.bidHistory == null || bidHistory.isEmpty())
+			return null;
+		return this.bidHistory.get(this.bidHistory.size()-1);
+	}
 
 	public void addBid(Bid bid) {
 		if (this.bidHistory == null)
 			this.bidHistory = new ArrayList<Bid>();
-		bidHistory.add(bid);
-
+		this.bidHistory.add(bid);
 	}
 
 	public int getId() {

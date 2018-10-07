@@ -1,10 +1,13 @@
 package ejb;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TemporalType;
+import javax.persistence.TypedQuery;
 
 import entities.*;
 
@@ -28,7 +31,7 @@ public class ProductEJB {
 			return BidStatus.MISSING_USER;
 		if (product == null)
 			return BidStatus.MISSING_PRODUCT;
-		if (bid.getAmount() < 1 || (product.getLastBid() != null && product.getLastBid().getAmount() > bid.getAmount()))
+		if (bid.getAmount() < 1 || (product.getLastBid() != null && product.getLastBid().getAmount() >= bid.getAmount()))
 			return BidStatus.LOW;
 		if (!product.getActive())
 			return BidStatus.NOT_ACTIVE;
@@ -42,6 +45,11 @@ public class ProductEJB {
 	
 	public List<Product> findProducts() {
 		return em.createNamedQuery(Product.FIND_ALL, Product.class).getResultList();
+	}
+	
+	public List<Product> findActiveProducts() {
+		TypedQuery<Product> q = em.createQuery("SELECT t FROM Product t WHERE t.endTime > CURRENT_TIMESTAMP and t.active = true", Product.class);
+		return q.getResultList();
 	}
 	
 	public Product findProduct(int id) {

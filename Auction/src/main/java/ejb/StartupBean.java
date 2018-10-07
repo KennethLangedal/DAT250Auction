@@ -30,7 +30,7 @@ public class StartupBean {
     	user.setEmail("Kenneth.Langedal@hotmail.com");
 
     	Product p1 = new Product();
-    	p1.setActive(true);
+    	p1.setActive(false);
     	p1.setName("Fersk sjokolademelk");
     	p1.setEndTime(new Date(2020,1,1));
     	p1.setUser(user);

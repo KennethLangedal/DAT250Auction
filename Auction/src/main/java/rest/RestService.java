@@ -27,6 +27,8 @@ import entities.Product;
 @Path("/auctions")
 @Stateless
 public class RestService {
+	
+	private final int tempUserId = 1; 
 
 	@PersistenceContext(unitName = "Auction")
 	private EntityManager em;
@@ -45,7 +47,7 @@ public class RestService {
 	@Path("{id}")
 	public Product getAuction(@PathParam("id") String id){
 		int idInt = Integer.parseInt(id);
-		Product product = em.find(Product.class, idInt);
+		Product product = productEJB.findProduct(idInt);
 		if (product == null)
 			throw new NotFoundException();
 		return product;
@@ -56,10 +58,10 @@ public class RestService {
 	@Path("{id}/bids")
 	public List<Bid> getBids(@PathParam("id") String id) {
 		int idInt = Integer.parseInt(id);
-		Product product = em.find(Product.class, idInt);
-		if (product == null)
+		List<Bid> products = productEJB.findBids(idInt);
+		if (products == null)
 			throw new NotFoundException();
-		return product.getBidHistory();
+		return products;
 	}
 	
 	@GET
@@ -67,7 +69,8 @@ public class RestService {
 	@Path("{id}/bids/{bid}")
 	public Bid getBid(@PathParam("id") String id, @PathParam("bid") String bId) {
 		int bIdInt = Integer.parseInt(bId);
-		Bid bid = em.find(Bid.class, bIdInt);
+	
+		Bid bid = productEJB.findBid(bIdInt);
 		if (bid == null)
 			throw new NotFoundException();
 		return bid;
@@ -79,7 +82,7 @@ public class RestService {
 	@Path("{id}/bids")
 	public Response postBid(@PathParam("id") String id, Bid bid){
 		int productId = Integer.parseInt(id);
-		switch(productEJB.placeBid(productId, 3435, bid)) {
+		switch(productEJB.placeBid(productId, tempUserId, bid)) {
 		case LOW:
 			return Response.ok().build();
 		case MISSING_PRODUCT:
@@ -87,10 +90,9 @@ public class RestService {
 		case MISSING_USER:
 			return Response.status(404).entity("Missing user").build();
 		case NOT_ACTIVE:
-			return Response.status(404).entity("not active").build();
+			return Response.status(400).entity("The product is not active").build();
 		case PRODUCT_CLOSED:
-			return Response.status(404).entity("product closed").build();
-			
+			return Response.status(400).entity("Product is closed").build();
 		};
 		return Response.ok(bid).build();
 	

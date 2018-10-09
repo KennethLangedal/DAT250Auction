@@ -43,6 +43,17 @@ public class ProductEJB {
 		return BidStatus.OK;
 	}
 	
+	public List<Bid> findBids(int productId) {
+		Product product = em.find(Product.class, productId);
+		if (product == null)
+			return null;
+		return product.getBidHistory();
+	}
+	
+	public Bid findBid(int bidId) {
+		return em.find(Bid.class, bidId);
+	}
+	
 	public List<Product> findProducts() {
 		return em.createNamedQuery(Product.FIND_ALL, Product.class).getResultList();
 	}

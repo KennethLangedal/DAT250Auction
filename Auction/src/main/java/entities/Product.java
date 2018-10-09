@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Table(name = "product")
 @NamedQuery(name = "Product.findAll", query = "SELECT t FROM Product t")
+@NamedQuery(name = "Product.findActive", query = "SELECT t FROM Product t WHERE t.endTime > CURRENT_TIMESTAMP and t.active = true")
 public class Product {
 	private static final long serialVersionUID = 1L;
 
@@ -58,6 +59,7 @@ public class Product {
 	private ArrayList<Bid> bidHistory;
 
 	public static final String FIND_ALL = "Product.findAll";
+	public static final String FIND_ACTIVE = "Product.findActive";
 
 	public Product() {
 

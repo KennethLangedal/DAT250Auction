@@ -81,8 +81,7 @@ public class ProductEJB {
 	}
 	
 	public List<Product> findActiveProducts() {
-		TypedQuery<Product> q = em.createQuery("SELECT t FROM Product t WHERE t.endTime > CURRENT_TIMESTAMP and t.active = true", Product.class);
-		return q.getResultList();
+		return em.createNamedQuery(Product.FIND_ACTIVE, Product.class).getResultList();
 	}
 	
 	public Product findProduct(int id) {

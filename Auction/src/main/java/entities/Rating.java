@@ -35,4 +35,41 @@ public class Rating {
 	private User author;
 
 	public static final String FIND_ALL = "Rating.findAll";
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		if (score < 0)
+			this.score = 0;
+		else if (score > 5)
+			this.score = 5;
+		else
+			this.score = score;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public User getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(User author) {
+		this.author = author;
+	}
 }

@@ -62,6 +62,12 @@ public class User {
 			this.bidHistory = new ArrayList<Bid>();
 		this.bidHistory.add(bid);
 	}
+	
+	public void addProduct(Product product) {
+		if (this.products == null)
+			this.products = new ArrayList<Product>();
+		this.products.add(product);
+	}
 
 	public int getId() {
 		return id;

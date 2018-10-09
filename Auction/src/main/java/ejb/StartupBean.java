@@ -1,6 +1,7 @@
 package ejb;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.sql.Date;
 
 import javax.annotation.PostConstruct;
@@ -32,7 +33,7 @@ public class StartupBean {
     	Product p1 = new Product();
     	p1.setActive(false);
     	p1.setName("Fersk sjokolademelk");
-    	p1.setEndTime(new Date(2020,1,1));
+    	p1.setEndTime(new Date(System.currentTimeMillis() + 300000));
     	p1.setUser(user);
     	
     	user.setProducts(new ArrayList<Product>() {{add(p1);}});
@@ -56,7 +57,7 @@ public class StartupBean {
     	Product p2 = new Product();
     	p2.setActive(true);
     	p2.setName("Coca Cola Lemon");
-    	p2.setEndTime(new Date(2020,1,1));
+    	p2.setEndTime(new Date(System.currentTimeMillis() + 100000));
     	p2.setUser(user);
     	user1.setProducts(new ArrayList<Product>() {{add(p2);}});
     	

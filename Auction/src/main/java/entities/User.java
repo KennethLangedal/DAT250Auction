@@ -30,14 +30,17 @@ public class User {
 
 	// Create elements ids automatically, incremented 1 by 1
 	@TableGenerator(name = "userTableGenerator", allocationSize = 1, initialValue = 1)
-	@Id
+	
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "userTableGenerator")
 	private int id;
+	
+	private String password;
 
 	private String fName;
 
 	private String lName;
 
+	@Id
 	private String email;
 
 	private int phone;
@@ -75,6 +78,14 @@ public class User {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getfName() {

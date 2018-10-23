@@ -28,10 +28,7 @@ import entities.Product;
 @Stateless
 public class RestService {
 	
-	private final int tempUserId = 1; 
-
-	@PersistenceContext(unitName = "Auction")
-	private EntityManager em;
+	private final int tempUserId = 2;
 	
 	@EJB
 	private ProductEJB productEJB;
@@ -95,8 +92,6 @@ public class RestService {
 			return Response.status(400).entity("Product is closed").build();
 		};
 		return Response.ok(bid).build();
-	
-		
 	}
 }
 

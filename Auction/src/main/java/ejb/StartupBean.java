@@ -50,7 +50,7 @@ public class StartupBean {
     	
     	Bid bid2 = new Bid();
     	bid2.setUser(user1);
-    	bid2.setAmount(200);
+    	bid2.setAmount(300);
     	
     	p1.setBidHistory(new ArrayList<Bid>() {{add(bid); add(bid2);}});
     	

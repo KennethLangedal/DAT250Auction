@@ -1,5 +1,7 @@
 package entities;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +22,7 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement
 @Table(name = "bid")
 @NamedQuery(name = "Bid.findAll", query = "SELECT t FROM Bid t")
-public class Bid {
+public class Bid implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	public static final String FIND_ALL = "Bid.findAll";

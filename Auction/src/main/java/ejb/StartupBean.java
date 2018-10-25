@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import entities.Bid;
+import entities.Picture;
 import entities.Product;
 import entities.User;
 
@@ -26,7 +27,7 @@ public class StartupBean {
     @PostConstruct
     public void init() {
     	User user = new User();
-    	user.setfName("Kenneth nr1");
+    	user.setfName("Kenneth");
     	user.setlName("Langedal");
     	user.setPhone(90682290);
     	user.setEmail("Kenneth.Langedal@hotmail.com");
@@ -63,6 +64,12 @@ public class StartupBean {
     	p2.setEndTime(new Date(System.currentTimeMillis() + 100000));
     	p2.setUser(user1);
     	user1.setProducts(new ArrayList<Product>() {{add(p2);}});
+    	
+    	Picture picture = new Picture();
+    	picture.setPath("https://upload.wikimedia.org/wikipedia/en/thumb/5/59/Lemon_Coke_bottle.jpg/80px-Lemon_Coke_bottle.jpg");
+    	picture.setTitle("Coca Cola Lomon");
+    	
+    	p2.addPicture(picture);
     	
     	userEJB.createUser(user);
     	userEJB.createUser(user1);

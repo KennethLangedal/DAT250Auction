@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    template="/templates/menu.xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:define name="page_content">
+	<h3>#{productView.product.name}</h3>
+	<h:dataTable value="#{productView.product.pictures}" var="picture" border="2">
+		<h:column>
+			<f:facet name="header">Pictures</f:facet>
+			<img src="#{picture.path}" alt="#{picture.title}" />
+		</h:column>
+	</h:dataTable>
+	<h3>BidHistory</h3>
+	<h:dataTable value="#{productView.product.bidHistory}" var="bid" border="2">
+		<h:column>
+			<f:facet name="header">Amount</f:facet>
+			#{bid.amount}
+		</h:column>
+		<h:column>
+			<f:facet name="header">User</f:facet>
+			#{bid.user.fName}
+		</h:column>
+	</h:dataTable>
+	<h:form>
+		<h3>Make Bid!</h3>
+		<h:panelGrid columns="2">
+			<h:outputLabel for="amount">Amount:</h:outputLabel>
+			<h:inputText id="amount" value="#{productView.amount}" required="true"
+				requiredMessage="Please make a bid" maxlength="30"></h:inputText>
+			<h:commandButton action="#{productView.makeBid}" value="Bid"></h:commandButton>
+		</h:panelGrid>
+	</h:form>
+</ui:define>
+</ui:composition>

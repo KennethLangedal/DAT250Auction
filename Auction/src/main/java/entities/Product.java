@@ -76,6 +76,12 @@ public class Product {
 			this.bidHistory = new ArrayList<Bid>();
 		this.bidHistory.add(bid);
 	}
+	
+	public void addPicture(Picture picture) {
+		if (this.pictures == null)
+			this.pictures = new ArrayList<Picture>();
+		this.pictures.add(picture);
+	}
 
 	public int getId() {
 		return id;

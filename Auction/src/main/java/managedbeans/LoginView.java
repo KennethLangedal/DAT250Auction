@@ -1,6 +1,8 @@
 package managedbeans;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -35,26 +37,46 @@ public class LoginView implements Serializable {
 	private String password;
 	private User user;
 	
-	public String login() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-		try {
-			request.login(email, password);
-		} catch (ServletException e) {
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null));
-			return "signin";
-		}
-		Principal principal = request.getUserPrincipal();
-		this.user = userEJB.getUser(principal.getName());
-		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-		Map<String, Object> sessionMap = externalContext.getSessionMap();
-		sessionMap.put("User", user);
-		if (request.isUserInRole("user")) {
-			return "/index?faces-redirect=true";
-		} else {
-			return "signin";
-		}
+//	public String login() {
+//		FacesContext context = FacesContext.getCurrentInstance();
+//		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+//		try {
+//			request.login(email, password);
+//		} catch (ServletException e) {
+//			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), null));
+//			return "signin";
+//		}
+//		Principal principal = request.getUserPrincipal();
+//		this.user = userEJB.getUser(principal.getName());
+//		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+//		Map<String, Object> sessionMap = externalContext.getSessionMap();
+//		sessionMap.put("User", user);
+//		if (request.isUserInRole("user")) {
+//			return "/index?faces-redirect=true";
+//		} else {
+//			return "signin";
+//		}
+//	}
+	
+	public static User sessionUser() {
+		Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		User user = (User)sessionMap.get("User");
+		return user;
 	}
+	
+	public String login() {
+		user = userEJB.getUser(email);
+		try {
+			if (user == null || !user.getPassword().equals(UserEJB.encodeSHA256(password)))
+				return "signin";
+		} catch (Exception e) {
+			return "signin";
+		}
+		Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		sessionMap.put("User", user);
+		return "home";
+	}
+	
 	public String logout() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
@@ -66,7 +88,7 @@ public class LoginView implements Serializable {
 		} catch (ServletException e) {
 			
 		}
-		return "/signin?faces-redirect=true";
+		return "home";
 	}
 	public User getAuthenticatedUser() {
 		return user;

@@ -28,7 +28,7 @@ import entities.Product;
 @Stateless
 public class RestService {
 	
-	private final int tempUserId = 2;
+	private final String tempUserId = "Kenneth.Langedal@hotmail.com";
 	
 	@EJB
 	private ProductEJB productEJB;

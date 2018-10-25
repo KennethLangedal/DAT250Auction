@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.sql.Date;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
@@ -19,8 +20,8 @@ import entities.User;
 @Singleton
 public class StartupBean {
 	
-	@PersistenceContext(unitName = "Auction")
-	private EntityManager em;
+	@EJB
+	private UserEJB userEJB;
 	
     @PostConstruct
     public void init() {
@@ -29,6 +30,7 @@ public class StartupBean {
     	user.setlName("Langedal");
     	user.setPhone(90682290);
     	user.setEmail("Kenneth.Langedal@hotmail.com");
+    	user.setPassword("123asdA");
 
     	Product p1 = new Product();
     	p1.setActive(false);
@@ -43,6 +45,7 @@ public class StartupBean {
     	user1.setlName("Løland");
     	user1.setPhone(123456789);
     	user1.setEmail("Markus.Løland@hotmail.com");
+    	user1.setPassword("123asdA");
     	
     	Bid bid = new Bid();
     	bid.setUser(user1);
@@ -61,7 +64,7 @@ public class StartupBean {
     	p2.setUser(user);
     	user1.setProducts(new ArrayList<Product>() {{add(p2);}});
     	
-    	em.persist(user);
-    	em.persist(user1);
+    	userEJB.createUser(user);
+    	userEJB.createUser(user1);
     }
 }

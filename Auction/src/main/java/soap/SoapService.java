@@ -16,6 +16,8 @@ import ejb.ProductEJB;
 @WebService
 public class SoapService {
 	
+	public final String tempUserId = "Kenneth.Langedal@hotmail.com";
+	
 	@EJB
 	private ProductEJB productEJB;
 	
@@ -36,6 +38,6 @@ public class SoapService {
     public ProductEJB.BidStatus makeBid(@WebParam(name = "amount") int amount, @WebParam(name = "auctionId") int id) {
     	Bid bid = new Bid();
     	bid.setAmount(amount);
-    	return productEJB.placeBid(id, 2, bid);
+    	return productEJB.placeBid(id, tempUserId, bid);
     }
 }

@@ -37,15 +37,15 @@ public class ProductEJB {
 	 * @param bid
 	 * @return BidStatus
 	 */
-	public BidStatus placeBid(int productId, int userId, Bid bid) {
+	public BidStatus placeBid(int productId, String email, Bid bid) {
 		// Get data
 		Product product = em.find(Product.class, productId);
-		User user = em.find(User.class, userId);
+		User user = em.find(User.class, email);
 		
 		// Validate bid
 		if (product == null)
 			return BidStatus.MISSING_PRODUCT;
-		if (user == null || userId == product.getUser().getId())
+		if (user == null || email.equals(product.getUser().getEmail()))
 			return BidStatus.MISSING_USER;
 		if (bid.getAmount() < 1 || (product.getLastBid() != null && product.getLastBid().getAmount() >= bid.getAmount()))
 			return BidStatus.LOW;

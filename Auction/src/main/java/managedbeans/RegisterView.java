@@ -1,32 +1,35 @@
 package managedbeans;
 
+import java.io.Serializable;
 import java.util.logging.Logger;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import ejb.UserEJB;
 import entities.User;
 
-@SuppressWarnings("deprecation")
-@ManagedBean
+@Named(value = "registerView")
 @SessionScoped
-public class RegisterView {
+public class RegisterView implements Serializable {
 	
-	private static Logger log = Logger.getLogger(RegisterView.class.getName());
+	private static final long serialVersionUID = 1685823449195612778L;
 	
 	@Inject
 	private UserEJB userEJB;
+	
 	private String name;
 	private String email;
 	private String password;
 	private String confirmPassword;
+	
 	public void validatePassword(ComponentSystemEvent event) {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		UIComponent components = event.getComponent();
@@ -48,6 +51,7 @@ public class RegisterView {
 			facesContext.addMessage(passwordId, msg);
 			facesContext.renderResponse();
 		}
+		String email = ((UIInput) components.findComponent("email")).getLocalValue().toString();
 		if (userEJB.getUser(email) != null) {
 			FacesMessage msg = new FacesMessage("User with this e-mail already exists");
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
@@ -61,7 +65,6 @@ public class RegisterView {
 		user.setPassword(password);
 		user.setfName(name);
 		userEJB.createUser(user);
-		log.info("New user created with e-mail: " + email + " and name: " + name);
 		return "regdone";
 	}
 	public String getName() {

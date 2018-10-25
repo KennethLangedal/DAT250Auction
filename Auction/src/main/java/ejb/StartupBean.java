@@ -61,7 +61,7 @@ public class StartupBean {
     	p2.setActive(true);
     	p2.setName("Coca Cola Lemon");
     	p2.setEndTime(new Date(System.currentTimeMillis() + 100000));
-    	p2.setUser(user);
+    	p2.setUser(user1);
     	user1.setProducts(new ArrayList<Product>() {{add(p2);}});
     	
     	userEJB.createUser(user);

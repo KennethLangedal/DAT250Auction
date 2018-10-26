@@ -8,17 +8,20 @@
     <h:head />
 
     <h:body>
+    <h:panelGrid columns="6">
     <h:link value="Home" outcome="home" />|
     <c:if test="#{menuView.isLoggedIn}">
-    	Hello #{menuView.userName}
-    	<h:form>
-    		<h:commandLink action="#{loginView.logout}" value="Logout"></h:commandLink>
-    	</h:form>
+    	    	Hello #{menuView.userName}|
+    		<h:form>
+    			<h:commandLink action="#{loginView.logout}" value="Logout"/>|
+    		</h:form>
+    		<h:link value="Profile" outcome="profile"/>
     </c:if>
     <c:if test="#{!menuView.isLoggedIn}">
         <h:link value="Login" outcome="signin" />|
     	<h:link value="Register" outcome="register" />
     </c:if>
+    </h:panelGrid>
 
         <ui:insert name="page_content" />
 

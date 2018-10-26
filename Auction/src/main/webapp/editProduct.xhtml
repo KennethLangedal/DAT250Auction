@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    template="/templates/menu.xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:define name="page_content">
+	<f:metadata>
+    	<f:viewParam name="id" value="#{editProductView.productId}" />
+    	<f:viewAction action="#{editProductView.onLoad}" />
+	</f:metadata>
+	<h:form>
+		<h3>Edit product</h3>
+		<h:panelGrid columns="2">
+			<h:outputLabel for="name">Name:</h:outputLabel>
+			<h:inputText id="name" value="#{editProductView.product.name}" required="true"
+				requiredMessage="Please enter a name" maxlength="30"></h:inputText>
+			<h:outputLabel for="description">Description:</h:outputLabel>
+			<h:inputText id="description" value="#{editProductView.product.description}" required="true"
+				requiredMessage="Please enter a description" maxlength="255">
+			</h:inputText>
+			<h:outputLabel for="endTime">End time(yyyy-MM-dd-HH-mm):</h:outputLabel>
+			<h:inputText id="endTime" value="#{editProductView.product.endTime}" required="true"
+				requiredMessage="Please enter a date" maxlength="255">
+				<f:convertDateTime pattern = "yyyy-MM-dd-HH-mm"/>
+			</h:inputText>
+			<h:outputLabel for="picture_url">Picture url:</h:outputLabel>
+			<h:inputText id="picture_url" value="#{editProductView.product.picture.path}" required="true"
+				requiredMessage="Please provide a picture" maxlength="255">
+			</h:inputText>
+			<h:outputLabel for="picture_title">Picture title:</h:outputLabel>
+			<h:inputText id="picture_title" value="#{editProductView.product.picture.title}" required="true"
+				requiredMessage="Please name your picture" maxlength="255">
+			</h:inputText>
+			<h:commandButton action="#{editProductView.save}" value="Save"></h:commandButton>
+			<h:commandButton action="#{editProductView.publish}" value="Publish"></h:commandButton>
+		</h:panelGrid>
+	</h:form>
+	<br />
+	<br />
+</ui:define>
+
+</ui:composition>

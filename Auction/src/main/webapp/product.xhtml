@@ -5,14 +5,13 @@
     xmlns:h="http://java.sun.com/jsf/html">
 
 <ui:define name="page_content">
+	<f:metadata>
+    	<f:viewParam name="id" value="#{productView.productId}" />
+    	<f:viewAction action="#{productView.onLoad}" />
+	</f:metadata>
 	<h3>#{productView.product.name}</h3>
-	<h:dataTable value="#{productView.product.pictures}" var="picture" border="2">
-		<h:column>
-			<f:facet name="header">Pictures</f:facet>
-			<img src="#{picture.path}" alt="#{picture.title}" />
-		</h:column>
-	</h:dataTable>
-	<h3>BidHistory</h3>
+	<h:panelGrid columns="2">
+	<img src="#{productView.product.picture.path}" alt="#{picture.title}" />
 	<h:dataTable value="#{productView.product.bidHistory}" var="bid" border="2">
 		<h:column>
 			<f:facet name="header">Amount</f:facet>
@@ -32,5 +31,6 @@
 			<h:commandButton action="#{productView.makeBid}" value="Bid"></h:commandButton>
 		</h:panelGrid>
 	</h:form>
+	</h:panelGrid>
 </ui:define>
 </ui:composition>

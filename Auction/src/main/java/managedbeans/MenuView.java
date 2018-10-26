@@ -7,7 +7,7 @@ import javax.inject.Named;
 
 @Named(value = "menuView")
 @SessionScoped
-public class menuView implements Serializable{
+public class MenuView implements Serializable{
 	private static final long serialVersionUID = 3254181193309041386L;
 	
 	public boolean getIsLoggedIn() {
@@ -16,5 +16,9 @@ public class menuView implements Serializable{
 	
 	public String getUserName() {
 		return LoginView.sessionUser().getfName();
+	}
+	
+	public String getUserId() {
+		return LoginView.sessionUser().getEmail();
 	}
 }

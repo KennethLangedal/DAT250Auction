@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlElement;
@@ -36,6 +37,8 @@ public class Product {
 	private int id;
 
 	private String name;
+	
+	private String description;
 
 	private Date endTime;
 
@@ -52,10 +55,10 @@ public class Product {
 	@OneToMany(cascade=CascadeType.ALL)
 	private ArrayList<Feature> features;
 
-	@OneToMany(cascade=CascadeType.ALL)
-	private ArrayList<Picture> pictures;
+	@OneToOne(cascade=CascadeType.ALL)
+	private Picture picture;
 
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "product", cascade=CascadeType.ALL)
 	private ArrayList<Bid> bidHistory;
 
 	public static final String FIND_ALL = "Product.findAll";
@@ -75,12 +78,6 @@ public class Product {
 		if (this.bidHistory == null)
 			this.bidHistory = new ArrayList<Bid>();
 		this.bidHistory.add(bid);
-	}
-	
-	public void addPicture(Picture picture) {
-		if (this.pictures == null)
-			this.pictures = new ArrayList<Picture>();
-		this.pictures.add(picture);
 	}
 
 	public int getId() {
@@ -139,12 +136,12 @@ public class Product {
 		this.rating = rating;
 	}
 
-	public ArrayList<Picture> getPictures() {
-		return pictures;
+	public Picture getPicture() {
+		return picture;
 	}
 
-	public void setPictures(ArrayList<Picture> pictures) {
-		this.pictures = pictures;
+	public void setPicture(Picture picture) {
+		this.picture = picture;
 	}
 
 	@XmlElementWrapper(name = "bidHistory")
@@ -165,4 +162,11 @@ public class Product {
 		this.buyer = buyer;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }

@@ -69,7 +69,12 @@ public class StartupBean {
     	picture.setPath("https://upload.wikimedia.org/wikipedia/en/thumb/5/59/Lemon_Coke_bottle.jpg/80px-Lemon_Coke_bottle.jpg");
     	picture.setTitle("Coca Cola Lomon");
     	
-    	p2.addPicture(picture);
+    	Picture picture2 = new Picture();
+    	picture2.setPath("https://www.bramat.no/images/stories/tester/sjokolademelk_2016-07/tine-sjokolademelk.jpg");
+    	picture2.setTitle("Sjokolademeld");
+    	
+    	p2.setPicture(picture);
+    	p1.setPicture(picture2);
     	
     	userEJB.createUser(user);
     	userEJB.createUser(user1);

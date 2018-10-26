@@ -60,6 +60,7 @@ public class ProductEJB {
 		product.addBid(bid);
 		user.addBid(bid);
 		bid.setUser(user);
+		bid.setProduct(product);
 		product.setBuyer(user);
 		
 		return BidStatus.OK;
@@ -98,6 +99,16 @@ public class ProductEJB {
 		user.addProduct(product);
 	}
 	
+	public void mergeProduct(Product product) {
+		Product mproduct = em.find(Product.class, product.getId());
+		mproduct.setName(product.getName());
+		mproduct.setDescription(product.getDescription());
+		mproduct.setEndTime(product.getEndTime());
+		Picture p = em.find(Picture.class, mproduct.getPicture().getId());
+		p.setPath(product.getPicture().getPath());
+		p.setTitle(product.getPicture().getTitle());
+	}
+	
 	public void publish(int productId, Date endDate) {
 		Product product = em.find(Product.class, productId);
 		if (product == null)
@@ -107,6 +118,7 @@ public class ProductEJB {
 			throw new IllegalArgumentException("Invalid duration");
 		
 		product.setEndTime(endDate);
+		product.setActive(true);
 	}
 	
 	public void giveFeedback(Rating rating, int productId, int userId) {

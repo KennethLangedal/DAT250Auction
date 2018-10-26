@@ -58,12 +58,6 @@ public class LoginView implements Serializable {
 //		}
 //	}
 	
-	public static User sessionUser() {
-		Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
-		User user = (User)sessionMap.get("User");
-		return user;
-	}
-	
 	public String login() {
 		user = userEJB.getUser(email);
 		try {
@@ -90,6 +84,18 @@ public class LoginView implements Serializable {
 		}
 		return "home";
 	}
+	
+	public static User sessionUser() {
+		Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		User user = (User)sessionMap.get("User");
+		return user;
+	}
+	
+	public static void refreshSessionUser(User user) {
+		Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		sessionMap.put("User", user);
+	}
+	
 	public User getAuthenticatedUser() {
 		return user;
 	}

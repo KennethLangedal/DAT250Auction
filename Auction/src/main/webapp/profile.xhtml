@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    template="/templates/menu.xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:define name="page_content">
+	<f:metadata>
+    	<f:viewAction action="#{profileView.onLoad}" />
+	</f:metadata>
+	<h3>First name: #{profileView.user.fName}</h3>
+	<h3>Last name: #{profileView.user.lName}</h3>
+	<h3>Email: #{profileView.user.email}</h3>
+	<h3>phone: #{profileView.user.phone}</h3>
+	
+	<h:panelGrid columns="2">
+		<h:dataTable value="#{profileView.user.bidHistory}" var="bid" border="2">
+			<h:column>
+				<f:facet name="header">Product</f:facet>
+				#{bid.product.name}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Amount</f:facet>
+				#{bid.amount}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Product page</f:facet>
+				<h:link value="Product page" outcome="product">
+					<f:param name="id" value="#{bid.product.id}"></f:param>
+				</h:link>
+			</h:column>
+		</h:dataTable>
+		<h:dataTable value="#{profileView.user.products}" var="product" border="2">
+			<h:column>
+				<f:facet name="header">Product</f:facet>
+				#{product.name}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Active</f:facet>
+				#{product.active}
+			</h:column>
+			<h:column>
+				<f:facet name="header">Edit page</f:facet>
+				<h:link value="edit" outcome="editProduct">
+					<f:param name="id" value="#{product.id}"></f:param>
+				</h:link>
+			</h:column>
+		</h:dataTable>
+	</h:panelGrid>
+	<h:link value="new product" outcome="editProduct"/>
+</ui:define>
+</ui:composition>

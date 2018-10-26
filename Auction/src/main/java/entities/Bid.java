@@ -35,6 +35,9 @@ public class Bid {
 
 	@ManyToOne(cascade=CascadeType.ALL)
 	private User user;
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	private Product product;
 
 	public Bid() {
 
@@ -64,9 +67,17 @@ public class Bid {
 		this.user = user;
 	}
 
-	@Override
-	public String toString() {
-		return "Bid [id=" + id + ", amount=" + amount + ", user=" + user + "]";
+	@XmlTransient
+	public Product getProduct() {
+		return product;
 	}
 
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	@Override
+	public String toString() {
+		return "Bid [id=" + id + ", amount=" + amount + ", user=" + user + ", product=" + product + "]";
+	}
 }

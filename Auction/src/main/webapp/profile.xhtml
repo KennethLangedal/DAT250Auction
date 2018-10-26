@@ -47,6 +47,8 @@
 			</h:column>
 		</h:dataTable>
 	</h:panelGrid>
-	<h:link value="new product" outcome="editProduct"/>
+	<h:link value="new product" outcome="editProduct">
+		<f:param name="id" value="0"></f:param>
+	</h:link>
 </ui:define>
 </ui:composition>

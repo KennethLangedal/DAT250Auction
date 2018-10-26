@@ -45,7 +45,7 @@ public class EditProductView implements Serializable{
 	public String save() {
 		User user = LoginView.sessionUser();
 		if (product.getId() == 0)
-			productEJB.addProduct(product, user.getId());
+			productEJB.addProduct(product, user.getEmail());
 		else
 			productEJB.mergeProduct(product);
 		LoginView.refreshSessionUser(userEJB.getUser(user.getEmail()));

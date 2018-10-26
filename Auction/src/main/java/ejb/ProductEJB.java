@@ -109,8 +109,8 @@ public class ProductEJB {
 		return product;
 	}
 	
-	public void addProduct(Product product, int userId) {
-		User user = em.find(User.class, userId);
+	public void addProduct(Product product, String email) {
+		User user = em.find(User.class, email);
 		if (user == null)
 			throw new IllegalArgumentException("Missing user");
 		
@@ -141,9 +141,9 @@ public class ProductEJB {
 		context.createProducer().setDeliveryDelay(product.getEndTime().getTime() - System.currentTimeMillis()).send(topic, product);
 	}
 	
-	public void giveFeedback(Rating rating, int productId, int userId) {
+	public void giveFeedback(Rating rating, int productId, String email) {
 		Product product = em.find(Product.class, productId);
-		User user = em.find(User.class, userId);
+		User user = em.find(User.class, email);
 		if (product == null)
 			throw new IllegalArgumentException("Missing product");
 		

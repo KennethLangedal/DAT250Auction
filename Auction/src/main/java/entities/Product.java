@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -27,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "product")
 @NamedQuery(name = "Product.findAll", query = "SELECT t FROM Product t")
 @NamedQuery(name = "Product.findActive", query = "SELECT t FROM Product t WHERE t.endTime > CURRENT_TIMESTAMP and t.active = true")
-public class Product {
+public class Product implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	// Create elements ids automatically, incremented 1 by 1

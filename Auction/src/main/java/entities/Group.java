@@ -1,5 +1,7 @@
 package entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Table(name = "user_group")
 @NamedQuery(name = "Group.findAll", query = "SELECT g FROM Group g")
-public class Group {
+public class Group implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Transient

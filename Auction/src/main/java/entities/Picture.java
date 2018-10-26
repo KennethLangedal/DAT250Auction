@@ -1,5 +1,7 @@
 package entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,8 +10,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import com.google.gson.annotations.Expose;
 
 /**
  * @author Markus
@@ -20,7 +20,7 @@ import com.google.gson.annotations.Expose;
 @XmlRootElement
 @Table(name = "picture")
 @NamedQuery(name = "Picture.findAll", query = "SELECT t FROM Picture t")
-public class Picture {
+public class Picture implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	public static final String FIND_ALL = "Picture.findAll";

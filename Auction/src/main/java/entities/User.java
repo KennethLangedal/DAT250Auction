@@ -1,8 +1,8 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,8 +15,6 @@ import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import com.google.gson.annotations.Expose;
-
 /**
  * @author Kenneth
  *
@@ -25,7 +23,7 @@ import com.google.gson.annotations.Expose;
 @XmlRootElement
 @Table(name = "profile")
 @NamedQuery(name = "User.findAll", query = "SELECT t FROM User t")
-public class User {
+public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	// Create elements ids automatically, incremented 1 by 1

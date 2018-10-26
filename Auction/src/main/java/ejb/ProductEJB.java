@@ -1,16 +1,23 @@
 package ejb;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.jms.JMSConnectionFactory;
+import javax.jms.JMSContext;
+import javax.jms.JMSSessionMode;
+import javax.jms.Topic;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TemporalType;
-import javax.persistence.TypedQuery;
 
-import entities.*;
+import entities.Bid;
+import entities.Picture;
+import entities.Product;
+import entities.Rating;
+import entities.User;
 
 /**
  * @author Kenneth
@@ -26,6 +33,16 @@ public class ProductEJB {
 	
 	@PersistenceContext(unitName = "Auction")
 	private EntityManager em;
+	
+	
+	
+	@Inject
+	@JMSConnectionFactory("jms/dat250/ConnectionFactory")
+	@JMSSessionMode(JMSContext.AUTO_ACKNOWLEDGE)
+	private JMSContext context;
+	
+	@Resource(lookup = "jms/dat250/Topic")
+	private Topic topic;
 	
 	/**
 	 * Place a new bid.
@@ -53,8 +70,10 @@ public class ProductEJB {
 			return BidStatus.NOT_ACTIVE;
 		if (product.getEndTime().getTime() < System.currentTimeMillis())
 			return BidStatus.PRODUCT_CLOSED;
-		if (product.getEndTime().getTime() < System.currentTimeMillis() + MinBidTime)
+		if (product.getEndTime().getTime() < System.currentTimeMillis() + MinBidTime) {
 			product.setEndTime(new Date(System.currentTimeMillis() + MinBidTime));
+			context.createProducer().setDeliveryDelay(product.getEndTime().getTime() - System.currentTimeMillis()).send(topic, product);
+		}
 		
 		// Persist bid
 		product.addBid(bid);
@@ -119,6 +138,7 @@ public class ProductEJB {
 		
 		product.setEndTime(endDate);
 		product.setActive(true);
+		context.createProducer().setDeliveryDelay(product.getEndTime().getTime() - System.currentTimeMillis()).send(topic, product);
 	}
 	
 	public void giveFeedback(Rating rating, int productId, int userId) {

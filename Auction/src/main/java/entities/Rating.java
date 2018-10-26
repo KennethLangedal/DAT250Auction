@@ -1,5 +1,7 @@
 package entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +21,7 @@ import com.google.gson.annotations.Expose;
 @XmlRootElement
 @Table(name = "rating")
 @NamedQuery(name = "Rating.findAll", query = "SELECT t FROM Rating t")
-public class Rating {
+public class Rating implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	// Create elements ids automatically, incremented 1 by 1

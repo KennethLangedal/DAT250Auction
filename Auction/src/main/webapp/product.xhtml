@@ -10,6 +10,8 @@
     	<f:viewAction action="#{productView.onLoad}" />
 	</f:metadata>
 	<h3>#{productView.product.name}</h3>
+	<h3>#{productView.product.description}</h3>
+	<h3>Seller email: #{productView.product.user.email}</h3>
 	<h:panelGrid columns="2">
 	<img src="#{productView.product.picture.path}" alt="#{picture.title}" />
 	<h:dataTable value="#{productView.product.bidHistory}" var="bid" border="2">
@@ -20,6 +22,10 @@
 		<h:column>
 			<f:facet name="header">User</f:facet>
 			#{bid.user.fName}
+		</h:column>
+		<h:column>
+			<f:facet name="header">Email</f:facet>
+			#{bid.user.email}
 		</h:column>
 	</h:dataTable>
 	<h:form>

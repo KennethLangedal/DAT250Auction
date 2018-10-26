@@ -27,7 +27,7 @@ import entities.User;
 @Stateless
 public class ProductEJB {
 	
-	public final long MinBidTime = 600000;
+	public final long MinBidTime = 60000;
 	
 	public enum BidStatus{OK,LOW,NOT_ACTIVE,MISSING_PRODUCT,PRODUCT_CLOSED,MISSING_USER}
 	

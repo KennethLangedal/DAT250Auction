@@ -45,6 +45,12 @@
 					<f:param name="id" value="#{product.id}"></f:param>
 				</h:link>
 			</h:column>
+			<h:column>
+				<f:facet name="header">Product page</f:facet>
+				<h:link value="Product page" outcome="product">
+					<f:param name="id" value="#{product.id}"></f:param>
+				</h:link>
+			</h:column>
 		</h:dataTable>
 	</h:panelGrid>
 	<h:link value="new product" outcome="editProduct">

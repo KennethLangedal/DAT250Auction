@@ -39,7 +39,7 @@ public class ProductView implements Serializable{
 		if (user == null)
 			return "signin";
 		if (productEJB.placeBid(productId, user.getEmail(), bid) == ProductEJB.BidStatus.OK)
-			user.addBid(bid);
+			LoginView.refreshSessionUser(user);
 		return onLoad();
 	}
 	
